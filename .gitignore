@@ -1,6 +1,7 @@
 #############Person Setting Start################
 data/bigdata/
 .idea/
+.DS_Store
 
 ############Person Setting End#################
 # Byte-compiled / optimized / DLL files
