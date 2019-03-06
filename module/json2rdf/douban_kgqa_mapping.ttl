@@ -1,0 +1,252 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql:///douban_kgqa";
+	d2rq:username "root";
+	d2rq:password "root123456";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Table actor_to_movie (n:m)
+map:actor_to_movie__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:actor_to_movie;
+	d2rq:refersToClassMap map:movie_info;
+	d2rq:join "actor_to_movie.movie_actor_id => movie_person.movie_person_id";
+	d2rq:join "actor_to_movie.movie_info_id => movie_info.movie_info_id";
+	.
+
+# Table director_to_movie (n:m)
+map:director_to_movie__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:director_to_movie;
+	d2rq:refersToClassMap map:movie_info;
+	d2rq:join "director_to_movie.movie_director_id => movie_person.movie_person_id";
+	d2rq:join "director_to_movie.movie_info_id => movie_info.movie_info_id";
+	.
+
+# Table movie_genre
+map:movie_genre a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "movie_genre/@@movie_genre.movie_genre_id@@";
+	d2rq:class vocab:movie_genre;
+	d2rq:classDefinitionLabel "movie_genre";
+	.
+map:movie_genre__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_genre;
+	d2rq:property rdfs:label;
+	d2rq:pattern "movie_genre #@@movie_genre.movie_genre_id@@";
+	.
+map:movie_genre_movie_genre_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_genre;
+	d2rq:property vocab:movie_genre_movie_genre_id;
+	d2rq:propertyDefinitionLabel "movie_genre movie_genre_id";
+	d2rq:column "movie_genre.movie_genre_id";
+	d2rq:datatype xsd:integer;
+	.
+map:movie_genre_movie_genre_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_genre;
+	d2rq:property vocab:movie_genre_movie_genre_name;
+	d2rq:propertyDefinitionLabel "movie_genre movie_genre_name";
+	d2rq:column "movie_genre.movie_genre_name";
+	.
+
+# Table movie_info
+map:movie_info a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "movie_info/@@movie_info.movie_info_id@@";
+	d2rq:class vocab:movie_info;
+	d2rq:classDefinitionLabel "movie_info";
+	.
+map:movie_info__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property rdfs:label;
+	d2rq:pattern "movie_info #@@movie_info.movie_info_id@@";
+	.
+map:movie_info_movie_info_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_id;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_id";
+	d2rq:column "movie_info.movie_info_id";
+	d2rq:datatype xsd:integer;
+	.
+map:movie_info_movie_info_image_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_image_url;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_image_url";
+	d2rq:column "movie_info.movie_info_image_url";
+	.
+map:movie_info_movie_info_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_name;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_name";
+	d2rq:column "movie_info.movie_info_name";
+	.
+map:movie_info_movie_info_country a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_country;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_country";
+	d2rq:column "movie_info.movie_info_country";
+	.
+map:movie_info_movie_info_language a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_language;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_language";
+	d2rq:column "movie_info.movie_info_language";
+	.
+map:movie_info_movie_info_pubdate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_pubdate;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_pubdate";
+	d2rq:column "movie_info.movie_info_pubdate";
+	.
+map:movie_info_movie_info_episode a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_episode;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_episode";
+	d2rq:column "movie_info.movie_info_episode";
+	.
+map:movie_info_movie_info_duration a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_duration;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_duration";
+	d2rq:column "movie_info.movie_info_duration";
+	.
+map:movie_info_movie_info_other_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_other_name;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_other_name";
+	d2rq:column "movie_info.movie_info_other_name";
+	.
+map:movie_info_movie_info_summary a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_summary;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_summary";
+	d2rq:column "movie_info.movie_info_summary";
+	.
+map:movie_info_movie_info_rating a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_rating;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_rating";
+	d2rq:column "movie_info.movie_info_rating";
+	.
+map:movie_info_movie_info_review_count a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_info_movie_info_review_count;
+	d2rq:propertyDefinitionLabel "movie_info movie_info_review_count";
+	d2rq:column "movie_info.movie_info_review_count";
+	.
+
+# Table movie_person
+map:movie_person a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "movie_person/@@movie_person.movie_person_id@@";
+	d2rq:class vocab:movie_person;
+	d2rq:classDefinitionLabel "movie_person";
+	.
+map:movie_person__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property rdfs:label;
+	d2rq:pattern "movie_person #@@movie_person.movie_person_id@@";
+	.
+map:movie_person_movie_person_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_id;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_id";
+	d2rq:column "movie_person.movie_person_id";
+	d2rq:datatype xsd:integer;
+	.
+map:movie_person_movie_person_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_name;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_name";
+	d2rq:column "movie_person.movie_person_name";
+	.
+map:movie_person_movie_person_image_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_image_url;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_image_url";
+	d2rq:column "movie_person.movie_person_image_url";
+	.
+map:movie_person_movie_person_gender a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_gender;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_gender";
+	d2rq:column "movie_person.movie_person_gender";
+	.
+map:movie_person_movie_person_constellation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_constellation;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_constellation";
+	d2rq:column "movie_person.movie_person_constellation";
+	.
+map:movie_person_movie_person_birthday a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_birthday;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_birthday";
+	d2rq:column "movie_person.movie_person_birthday";
+	.
+map:movie_person_movie_person_birthplace a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_birthplace;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_birthplace";
+	d2rq:column "movie_person.movie_person_birthplace";
+	.
+map:movie_person_movie_person_profession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_profession;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_profession";
+	d2rq:column "movie_person.movie_person_profession";
+	.
+map:movie_person_movie_person_other_chinese_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_other_chinese_name;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_other_chinese_name";
+	d2rq:column "movie_person.movie_person_other_chinese_name";
+	.
+map:movie_person_movie_person_other_english_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_other_english_name;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_other_english_name";
+	d2rq:column "movie_person.movie_person_other_english_name";
+	.
+map:movie_person_movie_person_family_member a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_family_member;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_family_member";
+	d2rq:column "movie_person.movie_person_family_member";
+	.
+map:movie_person_movie_person_introduction a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:movie_person_movie_person_introduction;
+	d2rq:propertyDefinitionLabel "movie_person movie_person_introduction";
+	d2rq:column "movie_person.movie_person_introduction";
+	.
+
+# Table movie_to_genre (n:m)
+map:movie_to_genre__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_info;
+	d2rq:property vocab:movie_to_genre;
+	d2rq:refersToClassMap map:movie_genre;
+	d2rq:join "movie_to_genre.movie_info_id => movie_info.movie_info_id";
+	d2rq:join "movie_to_genre.movie_genre_id => movie_genre.movie_genre_id";
+	.
+
+# Table writer_to_movie (n:m)
+map:writer_to_movie__link a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:movie_person;
+	d2rq:property vocab:writer_to_movie;
+	d2rq:refersToClassMap map:movie_info;
+	d2rq:join "writer_to_movie.movie_writer_id => movie_person.movie_person_id";
+	d2rq:join "writer_to_movie.movie_info_id => movie_info.movie_info_id";
+	.
+
