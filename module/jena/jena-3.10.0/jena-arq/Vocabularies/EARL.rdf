@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<rdf:RDF xml:base="http://www.w3.org/ns/earl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl"
+         xmlns:dc="http://purl.org/dc/terms/">
+
+<!--// ### ontology header ### //-->
+
+<owl:Ontology rdf:about="">
+  <rdfs:label xml:lang="en">Evaluation and Report Language (EARL) 1.0 Schema</rdfs:label>
+  <rdfs:comment xml:lang="en">Formal schema of the Evaluation and Report Language (EARL) 1.0</rdfs:comment>
+  <owl:versionInfo xml:lang="en">Editor's Working Draft 10 June 2009</owl:versionInfo>
+  <rdfs:isDefinedBy rdf:resource="http://www.w3.org/TR/EARL10/" />
+  <rdfs:seeAlso rdf:resource="http://www.w3.org/WAI/intro/earl" />
+  <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/HTTP-in-RDF/" />
+  <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/Content-in-RDF/" />
+  <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/Pointers-in-RDF/" />
+</owl:Ontology>
+
+<!--// ### EARL 1.0 classes ### //-->
+
+<rdf:Description rdf:about="#Assertion">
+  <rdfs:label xml:lang="en">Assertion</rdfs:label>
+  <rdfs:comment xml:lang="en">a statement that embodies the results of a test</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#Assertor">
+  <rdfs:label xml:lang="en">Assertor</rdfs:label>
+  <rdfs:comment xml:lang="en">an entity such as a person, a software tool, an organization, or any other grouping that carries out a test collectively</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestSubject">
+  <rdfs:label xml:lang="en">Test Subject</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of things that have been tested against some test criterion</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestCriterion">
+  <rdfs:label xml:lang="en">Test Criterion</rdfs:label>
+  <rdfs:comment xml:lang="en">a testable statement, usually one that can be passed or failed</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestRequirement">
+  <rdfs:subClassOf rdf:resource="#TestCriterion"/>
+  <rdfs:label xml:lang="en">Test Requirement</rdfs:label>
+  <rdfs:comment xml:lang="en">a higher-level requirement that is tested by executing one or more sub-tests</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestCase">
+  <rdfs:subClassOf rdf:resource="#TestCriterion"/>
+  <rdfs:label xml:lang="en">Test Case</rdfs:label>
+  <rdfs:comment xml:lang="en">an atomic test, usually one that is a partial test for a requirement</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestResult">
+  <rdfs:label xml:lang="en">Test Result</rdfs:label>
+  <rdfs:comment xml:lang="en">the actual result of performing the test</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#TestMode">
+  <rdfs:label xml:lang="en">Test Mode</rdfs:label>
+  <rdfs:comment xml:lang="en">describes how a test was carried out</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#OutcomeValue">
+  <rdfs:label xml:lang="en">Outcome Value</rdfs:label>
+  <rdfs:comment xml:lang="en">a discrete value that describes a resulting condition from carrying out the test</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#Pass">
+  <rdfs:subClassOf rdf:resource="#OutcomeValue"/>
+  <rdfs:label xml:lang="en">Pass</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of outcomes to denote passing a test</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#Fail">
+  <rdfs:subClassOf rdf:resource="#OutcomeValue"/>
+  <rdfs:label xml:lang="en">Fail</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of outcomes to denote failing a test</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#CannotTell">
+  <rdfs:subClassOf rdf:resource="#OutcomeValue"/>
+  <rdfs:label xml:lang="en">Undetermined</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of outcomes to denote an undetermined outcome</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#NotApplicable">
+  <rdfs:subClassOf rdf:resource="#OutcomeValue"/>
+  <rdfs:label xml:lang="en">Not applicable</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of outcomes to denote the test is not applicable</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#NotTested">
+  <rdfs:subClassOf rdf:resource="#OutcomeValue"/>
+  <rdfs:label xml:lang="en">Not tested</rdfs:label>
+  <rdfs:comment xml:lang="en">the class of outcomes to denote the test has not been carried out</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#Software">
+  <rdfs:subClassOf rdf:resource="http://usefulinc.com/ns/doap#Project"/>
+  <rdfs:label xml:lang="en">Software</rdfs:label>
+  <rdfs:comment xml:lang="en">any piece of software such as an authoring tool, browser, or evaluation tool</rdfs:comment>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdf:Description>
+
+<!--// ### EARL 1.0 properties ### //-->
+
+<rdf:Description rdf:about="#assertedBy">
+  <rdfs:label xml:lang="en">Asserted By</rdfs:label>
+  <rdfs:comment xml:lang="en">assertor of an assertion</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertion"/>
+  <rdfs:range rdf:resource="#Assertor"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#subject">
+  <rdfs:label xml:lang="en">Subject</rdfs:label>
+  <rdfs:comment xml:lang="en">test subject of an assertion</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertion"/>
+  <rdfs:range rdf:resource="#TestSubject"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#test">
+  <rdfs:label xml:lang="en">Test</rdfs:label>
+  <rdfs:comment xml:lang="en">test criterion of an assertion</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertion"/>
+  <rdfs:range rdf:resource="#TestCriterion"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#result">
+  <rdfs:label xml:lang="en">Result</rdfs:label>
+  <rdfs:comment xml:lang="en">result of an assertion</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertion"/>
+  <rdfs:range rdf:resource="#TestResult"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#mode">
+  <rdfs:label xml:lang="en">Mode</rdfs:label>
+  <rdfs:comment xml:lang="en">mode in which the test was performed</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertion"/>
+  <rdfs:range rdf:resource="#TestMode"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#mainAssertor">
+  <rdfs:label xml:lang="en">Main Assertor</rdfs:label>
+  <rdfs:comment xml:lang="en">assertor that is primarily responsible for performing the test</rdfs:comment>
+  <rdfs:domain rdf:resource="#Assertor"/>
+  <rdfs:range rdf:resource="#Assertor"/>
+  <rdfs:subPropertyOf rdf:resource="http://xmlns.com/foaf/spec/#term_member"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#outcome">
+  <rdfs:label xml:lang="en">Outcome</rdfs:label>
+  <rdfs:comment xml:lang="en">outcome of performing the test</rdfs:comment>
+  <rdfs:domain rdf:resource="#TestResult"/>
+  <rdfs:range rdf:resource="#OutcomeValue"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#pointer">
+  <rdfs:label xml:lang="en">Pointer</rdfs:label>
+  <rdfs:comment xml:lang="en">location within a test subject that are most relevant to a test result</rdfs:comment>
+  <rdfs:domain rdf:resource="TestResult"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2009/pointers#Pointer"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#info">
+  <rdfs:label xml:lang="en">Info</rdfs:label>
+  <rdfs:comment xml:lang="en">additional warnings or error messages in a human-readable form</rdfs:comment>
+  <rdfs:domain rdf:resource="#TestResult"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdf:Description>
+
+<!--// ### EARL 1.0 instances ### //-->
+
+<rdf:Description rdf:about="#automatic">
+  <rdf:type rdf:resource="#TestMode"/>
+  <dc:title xml:lang="en">Automatic</dc:title>
+  <dc:description xml:lang="en">where the test was carried out automatically by the software tool and without any human intervention</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#manual">
+  <rdf:type rdf:resource="#TestMode"/>
+  <dc:title xml:lang="en">Manual</dc:title>
+  <dc:description xml:lang="en">where the test was carried out by human evaluators</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#semiAuto">
+  <rdf:type rdf:resource="#TestMode"/>
+  <dc:title xml:lang="en">Semi-Automatic</dc:title>
+  <dc:description xml:lang="en">where the test was partially carried out by software tools, but where human input or judgment was still required to decide or help decide the outcome of the test</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#undisclosed">
+  <rdf:type rdf:resource="#TestMode"/>
+  <dc:title xml:lang="en">Undisclosed</dc:title>
+  <dc:description xml:lang="en">where the exact testing process is undisclosed</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#unknownMode">
+  <rdf:type rdf:resource="#TestMode"/>
+  <dc:title xml:lang="en">Unknown</dc:title>
+  <dc:description xml:lang="en">where the testing process is unknown or undetermined</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#passed">
+  <rdf:type rdf:resource="#Pass"/>
+  <dc:title xml:lang="en">Passed</dc:title>
+  <dc:description xml:lang="en">the subject passed the test</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#failed">
+  <rdf:type rdf:resource="#Fail"/>
+  <dc:title xml:lang="en">Failed</dc:title>
+  <dc:description xml:lang="en">the subject failed the test</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#cantTell">
+  <rdf:type rdf:resource="#CannotTell"/>
+  <dc:title xml:lang="en">Cannot tell</dc:title>
+  <dc:description xml:lang="en">it is unclear if the subject passed or failed the test</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#inapplicable">
+  <rdf:type rdf:resource="#NotApplicable"/>
+  <dc:title xml:lang="en">Inapplicable</dc:title>
+  <dc:description xml:lang="en">the test is not applicable to the subject</dc:description>
+</rdf:Description>
+
+<rdf:Description rdf:about="#untested">
+  <rdf:type rdf:resource="#NotTested"/>
+  <dc:title xml:lang="en">Untested</dc:title>
+  <dc:description xml:lang="en">the test has not been carried out</dc:description>
+</rdf:Description>
+
+</rdf:RDF>

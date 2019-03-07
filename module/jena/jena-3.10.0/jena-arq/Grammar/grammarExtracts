@@ -1,0 +1,57 @@
+#!/bin/perl
+## Licensed to the Apache Software Foundation (ASF) under one
+## or more contributor license agreements.  See the NOTICE file
+## distributed with this work for additional information
+## regarding copyright ownership.  The ASF licenses this file
+## to you under the Apache License, Version 2.0 (the
+## "License"); you may not use this file except in compliance
+## with the License.  You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+
+# Grammar HTML to a form of HTML suitable for cut&paste as fragments.
+
+# Remove definition links.
+# In <code class="gRuleHead">
+# <a id="XXX" name="XXX"> ==> <a href="#XXX"> or id="fragXXX"
+#
+# ??
+# In <code class="gRuleBody">
+# <a href="#XXX"> => <a href="#fragXXX">
+
+$DOC = 1 ;
+
+if ( $DOC )
+{
+    print <<'EOF'
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+  <title>SPARQL Grammar Fragments</title>
+  <link rel="stylesheet" type="text/css" href="http://www.w3.org/StyleSheets/TR/base.css" />
+  <link rel="stylesheet" type="text/css" href="http://www.w3.org/2001/sw/DataAccess/rq23/local.css" />
+  </head>
+<body>
+EOF
+}
+
+while(<>)
+{
+    s/\<a id="([^=\"]*)" name="([^=\"]*)"\>/<a href="#$1">/ ;
+    print ;
+}
+
+if ( $DOC )
+{
+    print <<'EOF'
+</body>
+</html>
+EOF
+}

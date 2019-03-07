@@ -1,5 +1,6 @@
 #############Person Setting Start################
 data/bigdata/
+data/rdf
 .idea/
 .DS_Store
 
