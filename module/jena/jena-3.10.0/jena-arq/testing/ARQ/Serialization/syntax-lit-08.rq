@@ -1,8 +1,0 @@
-BASE   <http://example.org/>
-PREFIX :  <#> 
-SELECT * WHERE 
-  { 
-      :x :p1 123.0 . 
-      :x :p2 123.  # SPARQL 1.1 -- integer
-      :x :p3 123.
-  } 

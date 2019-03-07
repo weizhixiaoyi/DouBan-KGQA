@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>dump-rdf: Dumping the database to an RDF file | The D2RQ Platform</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30091096-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+  <body>
+    <header>
+      <div class="document-collection">This document is part of the <a href="/">D2RQ documentation</a>.</div>
+      <h1><code>dump-rdf</code>: Dumping the database to an RDF file</h1>
+    </header>
+
+<p>The <code>dump-rdf</code> tool uses <a href="/">D2RQ</a> to
+<strong>dump the contents of the
+whole database into a single RDF file</strong>. This can be done with or without a
+D2RQ mapping file. If a mapping file is specified, then the tool will use it
+to translate the database contents to RDF. If no mapping file is specified,
+then the tool will use the default mapping of
+<a href="generate-mapping"><code>generate-mapping</code></a>
+for the translation.</p>
+
+
+<h2 id="usage-mapping">Usage</h2>
+
+<pre>dump-rdf <a href="#arg-f">[-f format]</a> <a href="#arg-b">[-b baseURI]</a> <a href="#arg-o">[-o outfile.ttl]</a>
+        <a href="#arg-verbose">[--verbose]</a> <a href="#arg-debug">[--debug]</a>
+        <a href="#arg-mapping-file">mapping-file.ttl</a></pre>
+
+<dl>
+<dt id="arg-mapping-file">mapping-file.ttl</dt>
+<dd><p>The filename of a <a href="d2rq-language">D2RQ mapping file</a> that
+contains a database mapping.</p>
+
+<p>If no mapping file is provided, then the database connection must be
+specified on the command line using the same <a href="generate-mapping#connection">connection
+parameters</a> as for the <code>generate-mapping</code> tool,
+and a default mapping will be used.</p>
+</dd>
+
+<dt id="arg-f"><code>-f format</code></dt>
+<dd>The RDF syntax to use for output. Supported syntaxes are “TURTLE”,
+  “RDF/XML”, “RDF/XML-ABBREV”, “N3”, and “N-TRIPLE” (the default).
+  “N-TRIPLE” works best for large databases.</dd>
+  
+<dt id="arg-b"><code>-b baseURI</code></dt>
+<dd>The base URI for turning relative URIs and URI patterns into absolute URIs.</dd>
+
+<dt id="arg-o"><code>-o outfile</code></dt>
+<dd>Name of the destination file. Defaults to standard output.</dd>
+
+<dt id="arg-verbose"><code>--verbose</code></dt>
+<dd>Print extra progress log information.</dd>
+
+<dt id="arg-debug"><code>--debug</code></dt>
+<dd>Print all debug log information.</dd>
+</dl>
+
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="example-mapping">Dump using a mapping file</h3>
+
+<pre>dump-rdf -f N-TRIPLE -b http://localhost:2020/ mapping-iswc.ttl &gt; iswc.nt</pre>
+
+
+<h3 id="example-default">Dump with default mapping</h3>
+
+<pre>dump-rdf -u root -f RDF/XML-ABBREV -o iswc-dump.rdf jdbc:mysql:///iswc</pre>
+
+<p>This dumps to RDF/XML format and writes the output to a file <code>iswc-dump.rdf</code>.</p>
+
+
+<h3 id="example-inmemory">Converting a SQL dump to RDF using a temporary in-memory database</h3>
+
+<pre>dump-rdf -l db_dump.sql -o output.nt</pre>
+
+  </body>
+</html>

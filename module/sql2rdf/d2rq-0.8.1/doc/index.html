@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The D2RQ Platform – Accessing Relational Databases as Virtual RDF Graphs</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <style type="text/css">
+html, body { margin: 0; padding: 0; }
+.header { background: #f8f8f8; border-bottom: 1px solid #ccc; height: 120px; margin: 0; }
+.header h1 { line-height: 70px; float: left; font-size: 540%; margin: 28px 0 0 55px; padding: 0; text-shadow: #666 1px 1px 2px; }
+.header #subtitle { border: none; font-size: 190%; padding: 23px 0 0 320px; line-height: 1.3em; }
+.nav.home { float: left; margin: 35px 0 0 60px; width: 220px; }
+.nav.home ul { list-style-type: none; margin-left: 0; margin-top: 0; padding-left: 0; }
+.nav.home li { margin-bottom: 1em; }
+.nav.home li a { background: #f8f8ff; border: 1px solid #ccc; border-radius: 0.8em; display: block; padding: 0.4em 0.9em 0.3em; /* IE quirks mode voodoo: */ zoom: 1; }
+.nav.home li span { border: 1px solid #ccc; border-top-left-radius: 0.8em; border-top-right-radius: 0.8em; display: block; padding: 0.2em 0.9em 0; }
+.nav.home li li { margin-bottom: 0; }
+.nav.home li li a { border-radius: 0; border-top: none; padding: 0.2em 0.9em 0.1em; }
+.nav.home li li.last a { border-bottom-left-radius: 0.8em; border-bottom-right-radius: 0.8em; }
+.nav.home a { text-decoration: none; font-weight: normal; }
+.nav.home a:hover { text-decoration: underline; background: #fcc; }
+.nav.home a, .nav.home span { box-shadow: 1px 1px 2px #555; }
+#main { margin: 35px 50px 3em 320px; }
+.acknowledgements a { color: #444; text-decoration: none; }
+.logos { float: right; text-align: right; }
+    </style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30091096-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>D2RQ</h1>
+      <div id="subtitle">Accessing Relational Databases<br />as Virtual RDF Graphs</div>
+    </div>
+
+<div class="nav home">
+  <ul>
+    <li class="group"><span><strong>Download</strong></span>
+      <ul>
+        <li><a href="https://github.com/downloads/d2rq/d2rq/d2rq-0.8.zip">d2rq-0.8.zip</a></li>
+        <li class="last"><a href="https://github.com/downloads/d2rq/d2rq/d2rq-0.8.tar.gz">d2rq-0.8.tar.gz</a></li>
+      </ul>
+    </li>
+    <li><a href="getting-started">Getting Started</a></li>
+    <li><a href="d2rq-language">D2RQ Mapping Language</a></li>
+    <li class="group"><span>Tools</span>
+      <ul>
+        <li><a href="d2r-server">D2R Server</a></li>
+        <li><a href="generate-mapping">generate-mapping</a></li>
+        <li><a href="d2r-query">d2r-query</a></li>
+        <li><a href="dump-rdf">dump-rdf</a></li>
+        <li class="last"><a href="jena">D2RQ + Jena API</a></li>
+      </ul>
+    </li>
+    <li class="group"><span>Support and Development</span>
+      <ul>
+        <li><a href="https://lists.sourceforge.net/lists/listinfo/d2rq-map-devel">Mailing List</a></li>
+        <li><a href="http://github.com/d2rq/d2rq/issues">Issue Tracker</a></li>
+        <li class="last"><a href="http://github.com/d2rq/d2rq">GitHub Project</a></li>
+      </ul>
+    </li>
+    <li><a href="resources">Links and Resources</a></li>
+    <li><a href="http://www4.wiwiss.fu-berlin.de/is-group/">Live Demo</a></li>
+  </ul>
+</div>
+
+<div id="main">
+
+<p>The D2RQ Platform is a system for accessing 
+  relational databases as virtual, read-only RDF graphs.
+  It offers RDF-based access to the content of relational
+  databases without having to replicate it into an RDF store.
+  Using D2RQ you can:</p>
+
+<ul>
+  <li>query a non-RDF database using <a href="http://www.w3.org/TR/sparql11-query/">SPARQL</a></li>
+  <li>access the content of the database as <a href="http://en.wikipedia.org/wiki/Linked_Data">Linked Data</a> over the Web</li>
+  <li>create custom dumps of the database in RDF formats for loading into an RDF store</li>
+  <li>access information in a non-RDF database using the <a href="http://incubator.apache.org/jena/">Apache Jena API</a></li>
+</ul>
+
+<p>D2RQ is Open Source software and published under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache license</a>. The source code is <a href="http://github.com/d2rq/d2rq">available on GitHub</a>. You can contact the dev team on the <a href="https://lists.sourceforge.net/lists/listinfo/d2rq-map-devel">D2RQ mailing list</a> at <a href="mailto:d2rq-map-devel@lists.sourceforge.net">d2rq-map-devel@lists.sourceforge.net</a>.</p>
+
+
+<h2 id="news">News</h2>
+
+<ul class="news">
+
+<!-- This should have about five items. Move older ones to archive.html -->
+
+<li><strong>Free webinar on D2RQ.</strong> As part of the <a href="http://lod2.eu/">LOD2 project</a>'s series of webinars on Linked Open Data topics, Robert Isele will present a session about D2RQ on Tuesday, April 24th. <a href="https://www2.gotomeeting.com/register/995893370">Sign up here</a>, or see <a href="http://lod2.eu/BlogPost/1119-lod2-webinar-series-linked-data-and-skos-d2r-and-sparqlify.html">here for more information</a>. <small>2012-04-21</small></li>
+
+<li><strong>Poster on D2RQ/Update at WWW2012.</strong> Vadim Eisenberg's <a href="http://d2rqupdate.cs.technion.ac.il/"><em>D2RQ/Update</em> extension</a> will be presented next week in the poster session at the <a href="http://www2012.wwwconference.org/">WWW2012 conference</a> in Lyon, France. See the poster <a href="http://d2rqupdate.cs.technion.ac.il/wpp179-eisenberg.pdf">here</a>. <small>2012-04-13</small></li>
+
+<li><strong>Version 0.8 released.</strong> New features include preliminary SPARQL 1.1 support, Firebird support, generation of RDFS/OWL schemas for databases, and download maps for making the content of CLOB/BLOB columns accessible via HTTP. Datatype compatibility with Oracle, MySQL, SQL Server and HSQLDB has been greatly improved, and a truckload of bugs have been fixed. For full details, see the <a href="https://github.com/d2rq/d2rq/blob/d871bbdde4e0a7ebd96ca66adc76d918cb7548f3/RELEASE_NOTES.md">release notes</a>. <small>2012-03-12</small></li>
+
+<li><strong>New website.</strong> Coinciding with the v0.8 release, we have overhauled the website and much of the documentation, and made <a href="http://d2rq.org/">d2rq.org</a> the official homepage of both D2RQ and D2R Server.</li>
+
+<li><strong>DERI/UCB collaboration.</strong> <a href="http://www.deri.ie/">DERI</a> and <a href="">UCB</a> have <a href="http://www.siliconrepublic.com/innovation/item/25955-deri-teams-up-with-belgium">announced a collaboration</a> to improve D2RQ. <small>2012-02-24</small></li>
+
+<li><strong>SPARQL/Update Extension released.</strong> Vadim Eisenberg has released a <a href="http://d2rqupdate.cs.technion.ac.il/">D2RQ/Update and D2R/Update Server Extension</a>  to the D2RQ Framework which allows you to use <a href="http://www.w3.org/TR/2009/WD-sparql11-update-20091022/">SPARQL/Update</a>  to change/delete/add data to a D2R-mapped relation database. D2RQ/Update uses the same mapping used by D2RQ, no additional information is required. The extension takes into account the database constraints, such as primary/foreign keys and non-nullable columns. A tutorial on how to use the extension is available <a href="http://d2rqupdate.cs.technion.ac.il/tutorial">here</a>. <small>2010-11-29</small></li>
+
+<li><strong>Tutorial:</strong> Vadim Eisenberg wrote a <a href="http://sw.cs.technion.ac.il/d2rq/tutorial">tutorial for getting D2R Server 0.7 up and running with a simple example database and mapping</a>. <small>2010-09-20</small></li>
+
+</ul>
+
+<p><a href="archive">News archive …</a></p>
+
+
+<h2 id="overview">Overview and Features</h2>
+
+<p>The D2RQ Platform consists of:</p>
+<ul>
+  <li>the <strong>D2RQ Mapping Language</strong>, a declarative mapping language 
+    for describing the relation between an ontology and an relational data model. 
+    <a href="d2rq-language">More…</a>
+  </li>
+  <li>the <strong>D2RQ Engine</strong>, a plug-in for the Jena Semantic Web toolkit, 
+    which uses the mappings to rewrite Jena API calls to SQL queries against the database and passes 
+    query results up to the higher layers of the frameworks.</li>
+  <li><strong>D2R Server</strong>, an HTTP server that
+    provides a Linked Data view, a HTML view for debugging
+    and a SPARQL Protocol endpoint over the database.
+    <a href="d2r-server">More…</a></li>
+</ul>
+
+<p><img src="images/architecture.png" alt="D2RQ Platform architecture diagram" /></p>
+
+
+<h2 id="compatibility">Database Compatibility</h2>
+
+<dl>
+  <dt>Supported databases</dt>
+  <dd>Oracle<br />MySQL<br />PostgreSQL<br />SQL Server<br />HSQLDB<br />Interbase/Firebird</dd>
+  <dt>ODBC data sources</dt>
+  <dd>D2RQ can connect to ODBC data sources like MS Access using an
+    ODBC-JDBC bridge. This works with some limitations.
+    We recommend using a dedicated JDBC driver for the
+    database in question.</dd>
+  <dt>Other databases</dt>
+  <dd>May or may not work.
+    By default, D2RQ interacts with the database using the SQL-92 standard.
+    Any compatible database <em>should</em> work out of the box.
+    We are interested in reports about D2RQ on other databases.</dd>
+</dl>
+
+<p>See <a href="https://github.com/d2rq/d2rq/wiki/Database-Compatibility">Database 
+compatibiliy</a> on the D2RQ wiki for more details.</p>
+
+
+<h2 id="acknowledgements">Acknowledgements</h2>
+
+<div class="logos">
+  <a href="http://www.fu-berlin.de/"><img src="images/fu-logo.gif" alt="Freie Universität Berlin logo" /></a><br />
+  <a href="http://www.deri.ie/"><img src="images/deri-logo.png" alt="DERI, NUI Galway" /></a>
+</div>
+
+<dl class="acknowledgements">
+<dt>Maintainers</dt>
+<dd>
+<a href="http://richard.cyganiak.de/">Richard Cyganiak</a><br />
+</dd>
+<dt>Project founder</dt>
+<dd><a href="http://www.wiwiss.fu-berlin.de/en/institute/pwo/bizer/team/BizerChristian.html">Chris Bizer</a></dd>
+<dt>Contributors</dt>
+<dd>
+<a href="https://github.com/luiseufrasio">Luís Eufrasio Teixeira Neto</a><br />
+<a href="http://hannes.muehleisen.org/">Hannes Mühleisen</a><br />
+<a href="http://www.deri.ie/about/team/member/aftab_iqbal/">Aftab Iqbal</a><br />
+<a href="https://github.com/jgeluk">Jacobus Geluk</a><br />
+<a href="https://github.com/melgi">Giovanni Mels</a><br />
+<a href="https://github.com/dlvenable">David Venable</a><br />
+<a href="http://www.wiwiss.fu-berlin.de/en/institute/pwo/bizer/team/BeckerChristian.html">Christian Becker</a><br />
+<a href="http://olafhartig.de/">Olaf Hartig</a><br />
+<a href="http://www.langegger.at/">Andreas Langegger</a><br />
+Herwig Leimer<br />
+<a href="http://surguy.net/">Inigo Surguy</a><br />
+<a href="http://www.oliver-maresch.de/">Oliver Maresch</a><br />
+Jörg Garbers<br />
+</dd>
+<dt>Contributing organisations</dt>
+<dd><a href="http://www.wiwiss.fu-berlin.de/en/institute/pwo/bizer/">FU Berlin</a>, <a href="http://www.deri.ie/">DERI</a>, <a href="http://www.ucb.com/">UCB</a>, JP Morgan Chase, AGFA Healthcare, HP Labs, Johannes Kepler Universität Linz</dd>
+</dl>
+
+</div>
+
+</body>
+</html>

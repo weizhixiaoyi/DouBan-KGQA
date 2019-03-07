@@ -1,3 +1,0 @@
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-<file://example.com/nested/foo.txt> rdfs:seeAlso <file://example.com/bar.txt> .
-

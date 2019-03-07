@@ -1,0 +1,417 @@
+@prefix : <http://www.semanticweb.org/zhenhaiwang/ontologies/2019/2/douban_kgqa#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.douban_kgqa.com> .
+
+<http://www.douban_kgqa.com> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.douban_kgqa.com#has_acted_in
+:has_acted_in rdf:type owl:ObjectProperty ;
+              owl:inverseOf :has_actor ;
+              rdfs:domain :movie_actor ;
+              rdfs:range :movie_info .
+
+
+###  http://www.douban_kgqa.com#has_actor
+:has_actor rdf:type owl:ObjectProperty ;
+           rdfs:domain :movie_info ;
+           rdfs:range :movie_actor .
+
+
+###  http://www.douban_kgqa.com#has_author
+:has_author rdf:type owl:ObjectProperty ;
+            owl:inverseOf :has_authored_in ;
+            rdfs:domain :book_info ;
+            rdfs:range :book_author .
+
+
+###  http://www.douban_kgqa.com#has_authored_in
+:has_authored_in rdf:type owl:ObjectProperty ;
+                 rdfs:domain :book_author ;
+                 rdfs:range :book_info .
+
+
+###  http://www.douban_kgqa.com#has_directed_in
+:has_directed_in rdf:type owl:ObjectProperty ;
+                 owl:inverseOf :has_director ;
+                 rdfs:domain :movie_director ;
+                 rdfs:range :movie_info .
+
+
+###  http://www.douban_kgqa.com#has_director
+:has_director rdf:type owl:ObjectProperty ;
+              rdfs:domain :movie_info ;
+              rdfs:range :movie_director .
+
+
+###  http://www.douban_kgqa.com#has_movie_genre
+:has_movie_genre rdf:type owl:ObjectProperty ;
+                 rdfs:domain :movie_info ;
+                 rdfs:range :movie_genre .
+
+
+###  http://www.douban_kgqa.com#has_translated_in
+:has_translated_in rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :has_translator ;
+                   rdfs:domain :book_translator ;
+                   rdfs:range :book_info .
+
+
+###  http://www.douban_kgqa.com#has_translator
+:has_translator rdf:type owl:ObjectProperty ;
+                rdfs:domain :book_info ;
+                rdfs:range :book_translator .
+
+
+###  http://www.douban_kgqa.com#has_writed_in
+:has_writed_in rdf:type owl:ObjectProperty ;
+               owl:inverseOf :has_writer ;
+               rdfs:domain :movie_writer ;
+               rdfs:range :movie_info .
+
+
+###  http://www.douban_kgqa.com#has_writer
+:has_writer rdf:type owl:ObjectProperty ;
+            rdfs:domain :movie_info ;
+            rdfs:range :movie_writer .
+
+
+###  http://www.douban_kgqa.com#have_book_genre
+:have_book_genre rdf:type owl:ObjectProperty ;
+                 rdfs:domain :book_info ;
+                 rdfs:range :book_genre .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.douban_kgqa.com#book_info
+:book_info rdf:type owl:DatatypeProperty .
+
+
+###  http://www.douban_kgqa.com#book_info_catalog
+:book_info_catalog rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :book_info ;
+                   rdfs:domain :book_info ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_content_abstract
+:book_info_content_abstract rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf :book_info ;
+                            rdfs:domain :book_info ;
+                            rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_image_url
+:book_info_image_url rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :book_info ;
+                     rdfs:domain :book_info ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_name
+:book_info_name rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :book_info ;
+                rdfs:domain :book_info ;
+                rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_page_num
+:book_info_page_num rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :book_info ;
+                    rdfs:domain :book_info ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_press
+:book_info_press rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :book_info ;
+                 rdfs:domain :book_info ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_price
+:book_info_price rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :book_info ;
+                 rdfs:domain :book_info ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_publish_year
+:book_info_publish_year rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :book_info ;
+                        rdfs:domain :book_info ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_rating
+:book_info_rating rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :book_info ;
+                  rdfs:domain :book_info ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_info_review_count
+:book_info_review_count rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :book_info ;
+                        rdfs:domain :book_info ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person
+:book_person rdf:type owl:DatatypeProperty .
+
+
+###  http://www.douban_kgqa.com#book_person_birthday
+:book_person_birthday rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :book_person ;
+                      rdfs:domain :book_person ;
+                      rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_birthplace
+:book_person_birthplace rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :book_person ;
+                        rdfs:domain :book_person ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_gender
+:book_person_gender rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :book_person ;
+                    rdfs:domain :book_person ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_image_url
+:book_person_image_url rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :book_person ;
+                       rdfs:domain :book_person ;
+                       rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_introduction
+:book_person_introduction rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :book_person ;
+                          rdfs:domain :book_person ;
+                          rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_name
+:book_person_name rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :book_person ;
+                  rdfs:domain :book_person ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#book_person_other_name
+:book_person_other_name rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :book_person ;
+                        rdfs:domain :book_person ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info
+:movie_info rdf:type owl:DatatypeProperty .
+
+
+###  http://www.douban_kgqa.com#movie_info_country
+:movie_info_country rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :movie_info ;
+                    rdfs:domain :movie_info ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_duration
+:movie_info_duration rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :movie_info ;
+                     rdfs:domain :movie_info ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_image_url
+:movie_info_image_url rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :movie_info ;
+                      rdfs:domain :movie_info ;
+                      rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_language
+:movie_info_language rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :movie_info ;
+                     rdfs:domain :movie_info ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_name
+:movie_info_name rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :movie_info ;
+                 rdfs:domain :movie_info ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_other_name
+:movie_info_other_name rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :movie_info ;
+                       rdfs:domain :movie_info ;
+                       rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_pubdate
+:movie_info_pubdate rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :movie_info ;
+                    rdfs:domain :movie_info ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_rating
+:movie_info_rating rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :movie_info ;
+                   rdfs:domain :movie_info ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_review_count
+:movie_info_review_count rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :movie_info ;
+                         rdfs:domain :movie_info ;
+                         rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_info_summary
+:movie_info_summary rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :movie_info ;
+                    rdfs:domain :movie_info ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person
+:movie_person rdf:type owl:DatatypeProperty .
+
+
+###  http://www.douban_kgqa.com#movie_person_birthday
+:movie_person_birthday rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :movie_person ;
+                       rdfs:domain :movie_person ;
+                       rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_birthplace
+:movie_person_birthplace rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :movie_person ;
+                         rdfs:domain :movie_person ;
+                         rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_constellation
+:movie_person_constellation rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf :movie_person ;
+                            rdfs:domain :movie_person ;
+                            rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_gender
+:movie_person_gender rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :movie_person ;
+                     rdfs:domain :movie_person ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_image_url
+:movie_person_image_url rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :movie_person ;
+                        rdfs:domain :movie_person ;
+                        rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_introduction
+:movie_person_introduction rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :movie_person ;
+                           rdfs:domain :movie_person ;
+                           rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_name
+:movie_person_name rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :movie_person ;
+                   rdfs:domain :movie_person ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_other_name
+:movie_person_other_name rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :movie_person ;
+                         rdfs:domain :movie_person ;
+                         rdfs:range xsd:string .
+
+
+###  http://www.douban_kgqa.com#movie_person_profession
+:movie_person_profession rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :movie_person ;
+                         rdfs:domain :movie_person ;
+                         rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.douban_kgqa.com#book_author
+:book_author rdf:type owl:Class ;
+             rdfs:subClassOf :book_person .
+
+
+###  http://www.douban_kgqa.com#book_genre
+:book_genre rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#book_info
+:book_info rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#book_person
+:book_person rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#book_translator
+:book_translator rdf:type owl:Class ;
+                 rdfs:subClassOf :book_person .
+
+
+###  http://www.douban_kgqa.com#movie_actor
+:movie_actor rdf:type owl:Class ;
+             rdfs:subClassOf :movie_person .
+
+
+###  http://www.douban_kgqa.com#movie_director
+:movie_director rdf:type owl:Class ;
+                rdfs:subClassOf :movie_person .
+
+
+###  http://www.douban_kgqa.com#movie_genre
+:movie_genre rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#movie_info
+:movie_info rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#movie_person
+:movie_person rdf:type owl:Class .
+
+
+###  http://www.douban_kgqa.com#movie_writer
+:movie_writer rdf:type owl:Class ;
+              rdfs:subClassOf :movie_person .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -1,5 +1,0 @@
-PREFIX :        <http://example.org/> 
-PREFIX apf:     <http://jena.apache.org/ARQ/property#>
-
-SELECT ?x
-{ "v" apf:assign "v" . }

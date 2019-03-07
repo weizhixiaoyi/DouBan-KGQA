@@ -1,5 +1,0 @@
-# Shared bnodes across graphs
-
-prefix : <http://www.example.com/>
-_:b :p :o1 .
-:G { _:b :p :o2 }

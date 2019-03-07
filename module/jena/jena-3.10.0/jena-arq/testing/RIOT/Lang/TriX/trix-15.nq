@@ -1,3 +1,0 @@
-<http://example.org/s> <http://example.org/p> "<&>" .
-<http://example.org/s> <http://example.org/p> "<&>"@en .
-<http://example.org/s> <http://example.org/p> "<&>"^^<http://www.w3.org/2001/XMLSchema#string> .

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="D2RQ" basedir="." default="all">
+
+	<property name="name" value="d2rq"/>
+	<property name="version" value="0.8.1"/>
+	<property name="project.package" value="de.fuberlin.wiwiss.d2rq"/>
+	<property name="project.path" value="de/fuberlin/wiwiss/d2rq"/>
+	<property name="src" value="src"/>
+	<property name="src.tests" value="test"/>
+	<property name="build" value="bldsrc"/>
+	<property name="build.tests" value="bldtests"/>
+	<property name="lib" value="lib"/>
+	<property name="doc" value="doc"/>
+	<property name="javadoc" value="${doc}/javadoc"/>
+	<property name="distname" value="${name}-${version}"/>
+	<property name="jar" value="${lib}/${distname}.jar"/>
+	<property name="zip" value="${distname}.zip"/>
+	<property name="tar" value="${distname}.tar.gz"/>
+	<property name="war" value="${name}.war" />
+
+	<property name="vocab.dir" value="${doc}/terms"/>
+	<property name="vocab.language.ttl" value="${vocab.dir}/d2rq.ttl"/>
+	<property name="vocab.language.rdf" value="${vocab.dir}/d2rq.rdf"/>
+	<property name="vocab.language.namespace" value="http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#"/>
+	<property name="vocab.config.ttl" value="${vocab.dir}/config.ttl"/>
+	<property name="vocab.config.rdf" value="${vocab.dir}/config.rdf"/>
+	<property name="vocab.config.namespace" value="http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#"/>
+	
+	<path id="project.class.path">
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+		<pathelement path="${java.class.path}"/>
+	</path>
+	
+	<patternset id="distfiles">
+		<include name="**/*"/>
+		<exclude name=".git/**"/>
+		<exclude name="${build}/**"/>
+		<exclude name="${build.tests}/**"/>
+		<exclude name="build/**"/>
+		<exclude name="${zip}"/>
+		<exclude name="${tar}"/>
+		<exclude name="${war}"/>
+		<exclude name=".project"/>
+		<exclude name=".classpath"/>
+		<exclude name=".settings/**"/>
+		<exclude name=".gitignore"/>
+		<exclude name="velocity.log"/>
+	</patternset>
+
+	<property name="execfiles" value="dump-rdf generate-mapping d2r-server d2r-query"/>
+
+	<target name="clean" description="Deletes all generated artefacts">
+		<delete dir="${build}" failonerror="false"/>
+		<delete dir="${build.tests}" failonerror="false"/>
+		<delete dir="${javadoc}" failonerror="false"/>
+		<delete file="${war}" failonerror="false"/>
+		<delete failonerror="false">
+			<fileset dir="." includes="${lib}/${name}-*.jar,${name}-*.zip,${name}-*.tar.gz"/>
+		</delete>
+	</target>
+	
+	<target name="init">
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="compile" depends="init" description="Compile project classes">
+		<javac srcdir="${src}"
+				destdir="${build}"
+				debug="on"
+				source="1.5"
+				target="1.5"
+				includeAntRuntime="false">
+			<classpath refid="project.class.path"/>
+		</javac>
+	</target>
+
+	<target name="init.tests">
+		<mkdir dir="${build.tests}"/>
+	</target>
+
+	<target name="compile.tests" depends="init.tests,compile" description="Compile test classes">
+		<javac srcdir="${src.tests}"
+				destdir="${build.tests}"
+				debug="on"
+				source="1.5"
+				target="1.5"
+				includeAntRuntime="false">
+			<classpath>
+				<path refid="project.class.path"/>
+				<pathelement path="${build}"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="copyfiles.tests" depends="init">
+		<copy todir="${build.tests}/">
+			<fileset dir="${src.tests}/">
+				<include name="${project.path}/**/*.n3"/>
+			</fileset>
+			<fileset file="etc/log4j.properties"/>
+		</copy>
+	</target>
+
+	<target name="test" depends="compile.tests,copyfiles.tests" description="Run tests">
+		<java classname="${project.package}.D2RQTestSuite" fork="yes" failonerror="true">
+			<classpath>
+				<path refid="project.class.path"/>
+				<pathelement path="${build}"/>
+				<pathelement path="${build.tests}"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="javadoc" description="Generate Javadoc API documentation">
+		<!-- Creates javadoc documentation for the source
+			 (but not for the tests) -->
+		<delete dir="${javadoc}"/>
+		<mkdir dir="${javadoc}"/>
+		<javadoc packagenames="*"
+				sourcepath="${src}"
+				classpathref="project.class.path"
+				destdir="${javadoc}"
+				author="true"
+				version="true"
+				private="false"
+				use="true"
+				splitindex="true"
+				breakiterator="yes"
+				windowtitle="D2RQ"
+				doctitle="D2RQ">
+			<link href="http://incubator.apache.org/jena/documentation/javadoc/jena/"/>
+			<link href="http://docs.oracle.com/javase/1.5.0/docs/api/"/>
+			<link href="http://incubator.apache.org/jena/documentation/javadoc/arq/"/>
+		</javadoc>
+	</target>
+
+<!--
+ 	<target name="jar" depends="compile,test">
+-->
+	<target name="jar" depends="compile" description="Generate project jar file">
+		<jar jarfile="${jar}" basedir="${build}">
+			<manifest>
+				<attribute name="Implementation-Version" value="${version}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="zip" depends="jar,javadoc" description="Generate distribution file in zip format">
+		<zip destfile="${zip}">
+			<zipfileset prefix="${distname}" dir=".">
+				<patternset refid="distfiles"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+	<target name="tar" depends="jar,javadoc" description="Generate distribution file in tar.gz format">
+		<tar destfile="${tar}" compression="gzip" longfile="gnu">
+			<tarfileset prefix="${distname}" dir="." includes="${execfiles}" mode="755"/>
+			<tarfileset prefix="${distname}" dir="." excludes="${execfiles}">
+				<patternset refid="distfiles"/>
+			</tarfileset>
+		</tar>
+	</target>
+
+	<target name="all" depends="zip,tar" description="Generate distribution files in zip and tar.gz formats"/>
+	
+	<target name="vocab.d2rq" description="Regenerate D2RQ vocabulary files from Turtle source">
+		<java classname="jena.schemagen" classpathref="project.class.path" fork="yes"
+				failonerror="true">
+			<arg value="-i" />
+			<arg value="file:${vocab.language.ttl}" />
+			<arg value="-o" />
+			<arg value="${src}" />
+			<arg value="-a" />
+			<arg value="${vocab.language.namespace}" />
+			<arg value="-n" />
+			<arg value="D2RQ" />
+			<arg value="--package" />
+			<arg value="${project.package}.vocab" />
+			<arg value="--rdfs" />
+		</java>
+		<java classname="jena.rdfcopy" classpathref="project.class.path" fork="yes"
+				output="${vocab.language.rdf}" logError="yes" failonerror="true">
+			<arg value="${vocab.language.ttl}"/>
+			<arg value="TURTLE"/>
+			<arg value="RDF/XML-ABBREV"/>
+		</java>
+	</target>
+
+	<target name="vocab.config" description="Regenerate Config vocabulary files from Turtle source">
+		<java classname="jena.schemagen" classpathref="project.class.path" fork="yes"
+				failonerror="true">
+			<arg value="-i"/>
+			<arg value="file:${vocab.config.ttl}"/>
+			<arg value="-o"/>
+			<arg value="${src}"/>
+			<arg value="-a"/>
+			<arg value="${vocab.config.namespace}"/>
+			<arg value="-n"/>
+			<arg value="D2RConfig"/>
+			<arg value="--package"/>
+			<arg value="${project.package}.vocab"/>
+			<arg value="--rdfs"/>
+		</java>
+		<java classname="jena.rdfcopy" classpathref="project.class.path" fork="yes"
+				output="${vocab.config.rdf}" logError="yes" failonerror="true">
+			<arg value="${vocab.config.ttl}"/>
+			<arg value="TURTLE"/>
+			<arg value="RDF/XML-ABBREV"/>
+		</java>
+	</target>
+	
+	<target name="war" depends="jar" description="Generate war archive for deployment in servlet container">
+		<war destfile="${war}" needxmlfile="false">
+			<fileset dir="webapp/">
+				<include name="**"/>
+				<exclude name="WEB-INF"/>
+			</fileset>
+			<!-- Include subdirectories directly, so that the files are all
+				 in the main lib directory. Otherwise, Tomcat won't pick up the jars.
+				 TODO: Do this by copying the libs to a temp dir with flatten="true" -->
+			<lib dir="${lib}">
+				<exclude name="*/*"/><!-- Do not recurse into subdirectories -->
+			</lib>
+			<lib dir="${lib}/arq-2.9"/>
+			<lib dir="${lib}/hsqldb-2.2.8"/>
+			<lib dir="${lib}/jetty-8.1.1">
+				<exclude name="servlet-api-*.jar"/>
+			</lib>
+			<lib dir="${lib}/joseki-3.4.4"/>
+			<lib dir="${lib}/logging"/>
+			<lib dir="${lib}/velocity-1.7"/>
+			<lib dir="${lib}/db-drivers"/>
+			<webinf dir="webapp/WEB-INF">
+				<include name="*"/>
+				<exclude name="templates"/>
+			</webinf>
+			<classes dir="etc"/>
+			<classes dir="webapp/WEB-INF/templates"/>
+		</war>
+	</target>
+</project>
