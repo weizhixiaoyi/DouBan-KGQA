@@ -1,0 +1,31 @@
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix :        <#> .
+
+<#service1>  rdf:type fuseki:Service ;
+    fuseki:name                       "douban_kgqa" ;       # http://host:port/tdb
+    fuseki:serviceQuery               "sparql" ;    # SPARQL query service
+    fuseki:serviceQuery               "query" ;    # SPARQL query service (alt name)
+    fuseki:serviceUpdate              "update" ;   # SPARQL update service
+    fuseki:serviceUpload              "upload" ;   # Non-SPARQL upload service
+    fuseki:serviceReadWriteGraphStore "data" ;     # SPARQL Graph store protocol (read and write)
+    # A separate read-only graph store endpoint:
+    fuseki:serviceReadGraphStore      "get" ;      # SPARQL Graph store protocol (read only)
+    fuseki:dataset           <#dataset> ;
+    .
+
+<#dataset> rdf:type ja:RDFDataset ;
+    ja:defaultGraph <#modelInf> ;
+    .
+
+<#modelInf> rdf:type ja:InfModel ;
+    ja:reasoner [ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLMicroFBRuleReasoner>];
+    ja:baseModel <#g> ;
+    .
+
+<#g> rdf:type tdb:GraphTDB ;
+    tdb:location "/Users/zhenhaiwang/GitHub/DouBan-KGQA/data/tdb" ;
+    tdb:unionDefaultGraph true ;
