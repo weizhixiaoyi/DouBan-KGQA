@@ -284,7 +284,6 @@ class QuestionSet:
         :return:
         """
         select = u"?x"
-
         sparql = None
         for w in word_objects:
             if w.pos == pos_movie:
@@ -307,7 +306,6 @@ class QuestionSet:
         :return:
         """
         select = u"?x"
-
         sparql = None
         for w in word_objects:
             if w.pos == pos_movie:
@@ -370,6 +368,61 @@ class QuestionSet:
                 break
 
         return sparql
+
+    @staticmethod
+    def has_movie_genre(word_objects):
+        """
+        某电影的类别
+        :return:
+        """
+        select = u"?x"
+        sparql = None
+        for w in word_objects:
+            if w.pos == pos_movie:
+                e = u"?m :movie_info_name '{movie}'.\n" \
+                    u"?m :has_movie_genre ?g.\n" \
+                    u"?g :movie_genre_name ?x".format(movie=w.token)
+
+                sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREFIX,
+                                                  select=select,
+                                                  expression=e)
+                break
+
+        return sparql
+
+    @staticmethod
+    def has_detail_information(word_objects):
+        """
+        某电影的详细信息
+        :param word_objects:
+        :return:
+        """
+        select = u"?x"
+        information_list = [
+            PropertyValueSet.return_image_url_value(),
+            PropertyValueSet.return_country_value(),
+            PropertyValueSet.return_language_value(),
+            PropertyValueSet.return_pubdate_value(),
+            PropertyValueSet.return_duration_value(),
+            PropertyValueSet.return_other_name_value(),
+            PropertyValueSet.return_summary_value(),
+            PropertyValueSet.return_rating_value(),
+            PropertyValueSet.return_review_count_value()
+        ]
+        sparql_list = []
+        for w in word_objects:
+            if w.pos == pos_movie:
+                for key_word in information_list:
+                    e = u"?m :movie_info_name '{movie}'.\n" \
+                        u"?m {key_word} ?x".format(movie=w.token, key_word=key_word)
+
+                    sparql = SPARQL_SELECT_TEM.format(prefix=SPARQL_PREFIX,
+                                                      select=select,
+                                                      expression=e)
+                    sparql_list.append(sparql)
+
+                break
+        return sparql_list
 
 
 """
@@ -443,6 +496,7 @@ other_name = (W('其他名字') | W('其他名称') | W('别名') | W('中文名
 summary = (W('介绍') | W('简介'))  # 简介
 rating = (W('评分') | W('分') | W('分数'))  # 评分
 review_count = (W('评分人数'))  # 评分人数
+detail_information = (W('详细信息') | W('详细介绍'))
 
 rating_basic = (rating | review_count)
 movie_info = (image_url | country | language | pubdate | duration | other_name | summary | rating | review_count)
@@ -459,18 +513,21 @@ where = (W("哪里") | W("哪儿") | W("何地") | W("何处") | W("在") + W("�
 
 # 问题模版, 匹配规则
 """
-# 某电影的图片/上映地区/语言/上映时间/时长/其他名称/介绍/评分/ 评价人数 ||| 整体简介
+# 某电影的图片/上映地区/语言/上映时间/时长/其他名称/介绍/评分/ 评价人数
 # 某电影的类型
 # 某电影有哪些演员
 # 某电影有哪些编剧
 # 某电影有哪些导演
+# 某电影的详细信息
 """
 
 rules = [
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + actor + Star(Any(), greedy=False)) | (actor + Star(Any(), greedy=False) + movie_entity + Star(Any(), greedy=False)), action=QuestionSet.has_actor),
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + writer + Star(Any(), greedy=False)) | (writer + Star(Any(), greedy=False) + movie_entity + Star(Any(), greedy=False)), action=QuestionSet.has_writer),
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + director + Star(Any(), greedy=False)) | (writer + Star(Any(), greedy=False) + movie_entity) + Star(Any(), greedy=False), action=QuestionSet.has_director),
-    Rule(condition_num=1, condition=movie_entity + Star(Any(), greedy=False) + movie_info + Star(Any(), greedy=False), action=QuestionSet.has_movie_info)
+    Rule(condition_num=1, condition=movie_entity + Star(Any(), greedy=False) + movie_info + Star(Any(), greedy=False), action=QuestionSet.has_movie_info),
+    Rule(condition_num=1, condition=movie_entity + Star(Any(), greedy=False) + category + Star(Any(), greedy=False), action=QuestionSet.has_movie_genre),
+    Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + detail_information + Star(Any(), greedy=False)) | (detail_information + Star(Any(), greedy=False) + movie_entity + Star(Any(), greedy=False)), action=QuestionSet.has_detail_information)
 ]
 
 basic_movie_info = [

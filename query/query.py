@@ -32,15 +32,23 @@ class Query:
         """
         # 命名实体识别
         ner_object = self.question_ner.get_ner_objects(question)
-        for value in ner_object:
-            print(value.token, value.pos)
+        # for value in ner_object:
+        #     print(value.token, value.pos)
 
         # 推理模型
         query_list = []
         for movie_info_rule in self.movie_info_rules:
             query, num = movie_info_rule.apply(ner_object)
+            # print(query, num)
+            # print(type(query), type(num))
+            if isinstance(query, list) and query:
+                for temp_query in query:
+                    query_list.append((num, temp_query))
+                continue
             if query:
                 query_list.append((num, query))
+                continue
+        print(query_list)
 
         # 进行sparql查询
         question_ans = []
@@ -48,6 +56,10 @@ class Query:
             sparql_result = self.fuseki.get_sparql_result(sparql_q[1])
             sparql_result_value = self.fuseki.get_sparql_result_value(sparql_result)
             question_ans.append(sparql_result_value)
+
+
+        # 寻找最相似的问题
+
         print(question_ans)
 
 
