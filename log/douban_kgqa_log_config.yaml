@@ -1,0 +1,27 @@
+version: 1.0
+disable_existing_loggers: False
+formatters:
+  brief:
+    format: "%(asctime)s-%(message)s"
+    datefmt: "%Y %a %d %H:%M:%S"
+  simple:
+    format: "%(asctime)s-%(name)s-%(levelname)s-%(message)s"
+    datefmt: "%Y %a %d %H:%M:%S"
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: brief
+    level: INFO
+  file:
+    class: logging.FileHandler
+    mode: 'w'
+    formatter: simple
+    level: INFO
+    filename: '../log/douban_kgqa.log'
+loggers:
+  spider:
+    level: INFO
+    handlers: [console, file]
+root:
+  level: INFO
+  handlers: [console]

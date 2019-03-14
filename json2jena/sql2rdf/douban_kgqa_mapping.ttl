@@ -45,7 +45,7 @@ map:movie_info_movie_info_country a d2rq:PropertyBridge;
 	.
 map:movie_info_movie_info_language a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:movie_info;
-	d2rq:property :movie_info_country;
+	d2rq:property :movie_info_language;
 	d2rq:propertyDefinitionLabel "movie_info movie_info_language";
 	d2rq:column "movie_info.movie_info_language";
 	.
@@ -356,4 +356,3 @@ map:translator_to_book__link a d2rq:PropertyBridge;
 	d2rq:join "translator_to_book.book_info_id => book_info.book_info_id";
 	d2rq:join "translator_to_book.book_translator_id => book_person.book_person_id";
 	.
-

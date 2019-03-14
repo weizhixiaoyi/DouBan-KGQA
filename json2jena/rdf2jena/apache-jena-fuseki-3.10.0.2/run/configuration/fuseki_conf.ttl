@@ -22,7 +22,10 @@
     .
 
 <#modelInf> rdf:type ja:InfModel ;
-    ja:reasoner [ja:reasonerURL <http://jena.hpl.hp.com/2003/OWLMicroFBRuleReasoner>];
+    ja:reasoner [
+        ja:reasonerURL <http://jena.hpl.hp.com/2003/GenericRuleReasoner>;
+        ja:rulesFrom <file:///Users/zhenhaiwang/GitHub/DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/databases/douban_kgqa_inference.ttl>;
+    ];
     ja:baseModel <#g> ;
     .
 

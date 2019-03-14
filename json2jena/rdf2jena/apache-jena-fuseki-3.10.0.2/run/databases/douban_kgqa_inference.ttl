@@ -1,0 +1,13 @@
+@prefix : <http://www.douban_kgqa.com#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <XML Schema> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+[ruleInverse: (?p :has_acted_in ?m) -> (?m :has_actor ?p)]
+[ruleInverse: (?p :has_writed_in ?m) -> (?m :has_writer ?p)]
+[ruleInverse: (?p :has_directed_in ?m) -> (?m :has_director ?p)]
+[ruleInverse: (?p :has_authored_in ?m) -> (?m :has_author ?p)]
+[ruleInverse: (?p :has_translated_in ?m) -> (?m :has_translator ?p)]
+

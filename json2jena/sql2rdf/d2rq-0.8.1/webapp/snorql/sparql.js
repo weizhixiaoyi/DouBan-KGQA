@@ -81,7 +81,7 @@ var SPARQL  = {}; // SPARQL namespace
  * that transforms the standard JSON output into a more useful form. The return value of a
  * transformation function is passed into any 'success' callback function provided when the query
  * is issued. The following transformations are included:
- *   + query -- identity transform; returns the JSON structure unchanged
+ *   + query -- identity question_transform; returns the JSON structure unchanged
  *   + ask -- for ASK queries; returns a boolean value indicating the answer to the query
  *   + selectValues -- for SELECT queries with a single variable; returns an array containing
  *       the answers to the query
