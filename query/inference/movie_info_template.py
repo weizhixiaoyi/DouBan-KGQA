@@ -3,7 +3,7 @@
 """
 基于规则的推理
 ------------
-慢慢更新之中
+电影信息
 """
 
 from refo import finditer, Predicate, Star, Any, Disjunction
@@ -247,29 +247,6 @@ class PropertyValueSet:
 
 
 """
-前缀和模版
-"""
-SPARQL_PREFIX = u"""PREFIX : <http://www.douban_kgqa.com#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-"""
-SPARQL_SELECT_TEM = u"{prefix}\n" + \
-                    u"SELECT DISTINCT {select} WHERE {{\n" + \
-                    u"{expression}\n" + \
-                    u"}}\n"
-
-SPARQL_COUNT_TEM = u"{prefix}\n" + \
-                   u"SELECT COUNT({select}) WHERE {{\n" + \
-                   u"{expression}\n" + \
-                   u"}}\n"
-
-SPARQL_ASK_TEM = u"{prefix}\n" + \
-                 u"ASK {{\n" + \
-                 u"{expression}\n" + \
-                 u"}}\n"
-
-
-"""
 问题SPARQL模版
 """
 class QuestionSet:
@@ -424,6 +401,27 @@ class QuestionSet:
                 break
         return sparql_list
 
+"""
+前缀和模版
+"""
+SPARQL_PREFIX = u"""PREFIX : <http://www.douban_kgqa.com#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+"""
+SPARQL_SELECT_TEM = u"{prefix}\n" + \
+                    u"SELECT DISTINCT {select} WHERE {{\n" + \
+                    u"{expression}\n" + \
+                    u"}}\n"
+
+SPARQL_COUNT_TEM = u"{prefix}\n" + \
+                   u"SELECT COUNT({select}) WHERE {{\n" + \
+                   u"{expression}\n" + \
+                   u"}}\n"
+
+SPARQL_ASK_TEM = u"{prefix}\n" + \
+                 u"ASK {{\n" + \
+                 u"{expression}\n" + \
+                 u"}}\n"
 
 """
 定义关键词
@@ -521,7 +519,7 @@ where = (W("哪里") | W("哪儿") | W("何地") | W("何处") | W("在") + W("�
 # 某电影的详细信息
 """
 
-rules = [
+movie_info_rules = [
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + actor + Star(Any(), greedy=False)) | (actor + Star(Any(), greedy=False) + movie_entity + Star(Any(), greedy=False)), action=QuestionSet.has_actor),
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + writer + Star(Any(), greedy=False)) | (writer + Star(Any(), greedy=False) + movie_entity + Star(Any(), greedy=False)), action=QuestionSet.has_writer),
     Rule(condition_num=1, condition=(movie_entity + Star(Any(), greedy=False) + director + Star(Any(), greedy=False)) | (writer + Star(Any(), greedy=False) + movie_entity) + Star(Any(), greedy=False), action=QuestionSet.has_director),

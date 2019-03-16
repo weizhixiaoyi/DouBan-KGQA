@@ -14,7 +14,7 @@ class Word(object):
         self.token = token
         self.pos = pos
 
-class QuestionNER:
+class QueryNER:
     def __init__(self, path_list):
         """
         初始化, 加载外部词典
@@ -26,7 +26,7 @@ class QuestionNER:
     def get_ner_objects(self, question):
         """
         对问题进行实体识别
-        :param question:
+        :param question:·
         :return:
         """
         return [Word(word, tag) for word, tag in pseg.cut(question)]

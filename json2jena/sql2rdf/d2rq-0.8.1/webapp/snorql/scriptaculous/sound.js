@@ -5,7 +5,7 @@
 // Based on code created by Jules Gravinese (http://www.webveteran.com/)
 //
 // script.aculo.us is freely distributable under the terms of an MIT-style license.
-// For details, see the script.aculo.us web site: http://script.aculo.us/
+// For details, see the script.aculo.us weixin site: http://script.aculo.us/
 
 Sound = {
   tracks: {},

@@ -8,7 +8,7 @@ from collections import OrderedDict
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 
-class JenaFuseki:
+class SparqlQuery:
     """
     SPARQL 查询
     """
@@ -68,7 +68,7 @@ class JenaFuseki:
 
 if __name__ == '__main__':
     # 测试
-    fuseki = JenaFuseki()
+    fuseki = SparqlQuery()
     query_test = """
 PREFIX : <http://www.douban_kgqa.com#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

@@ -30,7 +30,7 @@
 
   <!-- Apache Shiro setup -->
   <listener>
-    <!-- This replaces org.apache.shiro.web.env.EnvironmentLoaderListener
+    <!-- This replaces org.apache.shiro.weixin.env.EnvironmentLoaderListener
          Support multiple locations and looks in Fuseki-relevant places.
      -->
     <listener-class>org.apache.jena.fuseki.webapp.ShiroEnvironmentLoader</listener-class>

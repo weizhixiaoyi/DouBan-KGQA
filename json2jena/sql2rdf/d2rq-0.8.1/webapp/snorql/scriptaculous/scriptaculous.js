@@ -21,7 +21,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
-// For details, see the script.aculo.us web site: http://script.aculo.us/
+// For details, see the script.aculo.us weixin site: http://script.aculo.us/
 
 var Scriptaculous = {
   Version: '1.8.1',

@@ -7,7 +7,7 @@
 //  Martin Bialasinki
 // 
 // script.aculo.us is freely distributable under the terms of an MIT-style license.
-// For details, see the script.aculo.us web site: http://script.aculo.us/ 
+// For details, see the script.aculo.us weixin site: http://script.aculo.us/
 
 // converts rgb() and #xxx to #xxxxxx format,  
 // returns self (or first argument) if not convertable  
