@@ -2,11 +2,15 @@
 
 import web
 import hashlib
-import receive
-import reply
+from weixin import receive, reply
+from query.query import Query
 
 
 class Handle(object):
+    def __init__(self):
+        # 初始化query
+        self.query = Query()
+
     def GET(self):
         try:
             data = web.input()
@@ -43,11 +47,13 @@ class Handle(object):
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
                 if recMsg.MsgType == 'text':
-                    content = "彩虹屁屁"
-                    replyMsg = reply.TextMsg(toUser, fromUser, content)
+                    # result = "彩虹屁屁"
+                    question = recMsg.Content
+                    result = self.query.parse(question)
+                    replyMsg = reply.TextMsg(toUser, fromUser, result)
                     return replyMsg.send()
                 if recMsg.MsgType == 'image':
-                    mediaId = recMsg.MediaId
+                    mediaId = recMsg.MsgId
                     replyMsg = reply.ImageMsg(toUser, fromUser, mediaId)
                     return replyMsg.send()
                 else:
@@ -58,6 +64,11 @@ class Handle(object):
         except Exception as err:
             print('ERROR: ' + str(err))
             return err
+
+
+# class Handle(object):
+#     def GET(self):
+#         return "hello, this is handle view"
 
 
 urls = (

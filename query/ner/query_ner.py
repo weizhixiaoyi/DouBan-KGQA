@@ -33,7 +33,7 @@ class QueryNER:
 
 
 if __name__ == '__main__':
-    question_ner = QuestionNER(['book_and_movie_name.txt', 'person_name.txt'])
+    question_ner = QueryNER(['book_and_movie_name.txt', 'person_name.txt'])
     question = '郭帆导演的《流浪地球》好看吗?'
     ner_object = question_ner.get_ner_objects(question)
     for value in ner_object:
