@@ -34,7 +34,7 @@ class Query:
         :return:
         """
         # 命名实体识别
-        print('question: ' + str(question))
+        # print('question: ' + str(question))
         question_label = self.query_ner.get_ner_objects(question)
         # for value in question_label:
         #     print(value.token, value.pos)
