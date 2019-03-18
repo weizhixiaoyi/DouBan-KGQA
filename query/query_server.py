@@ -3,13 +3,15 @@
 import web
 import hashlib
 from weixin import receive, reply
-from query.query import Query
+from query_main import Query
 
+query = Query()
 
 class Handle(object):
     def __init__(self):
         # 初始化query
-        self.query = Query()
+        #  self.query = Query()
+        pass
 
     def GET(self):
         try:
@@ -49,7 +51,7 @@ class Handle(object):
                 if recMsg.MsgType == 'text':
                     # result = "彩虹屁屁"
                     question = recMsg.Content
-                    result = self.query.parse(question)
+                    result = query.parse(question)
                     replyMsg = reply.TextMsg(toUser, fromUser, result)
                     return replyMsg.send()
                 if recMsg.MsgType == 'image':

@@ -26,6 +26,7 @@ class Query:
 
         # 优化返回答案
         self.optimize_result = OptimizeResult()
+        print("Query初始化完成...")
 
     def parse(self, question):
         """
@@ -33,6 +34,7 @@ class Query:
         :return:
         """
         # 命名实体识别
+        print('question: ' + str(question))
         question_label = self.query_ner.get_ner_objects(question)
         # for value in question_label:
         #     print(value.token, value.pos)
@@ -52,7 +54,7 @@ class Query:
             sparql_result_value = self.sparql_query.get_sparql_result_value(sparql_result)
             candidate_list.append(sparql_result_value)
         # print(candidate_list)
-
+        print("candidate_list: " + str(candidate_list))
         # 寻找最相似的问题, 生成答案返回
         result = self.optimize_result.parse(candidate_list)
         return result
