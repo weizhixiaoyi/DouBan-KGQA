@@ -25,16 +25,16 @@
     ja:reasoner [
         ja:reasonerURL <http://jena.hpl.hp.com/2003/GenericRuleReasoner>;
         # macos
-        # ja:rulesFrom <file:///Users/zhenhaiwang/GitHub/DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/databases/douban_kgqa_inference.ttl>;
+        ja:rulesFrom <file:///Users/zhenhaiwang/GitHub/DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/databases/douban_kgqa_inference.ttl>;
         # ubuntu
-        ja:rulesFrom <file:///home/ubuntu/DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/databases/douban_kgqa_inference.ttl>;
+        # ja:rulesFrom <file:///home/ubuntu/DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/databases/douban_kgqa_inference.ttl>;
     ];
     ja:baseModel <#g> ;
     .
 
 <#g> rdf:type tdb:GraphTDB ;
     # macos 
-    # tdb:location "/Users/zhenhaiwang/GitHub/DouBan-KGQA/data/tdb" ;
+    tdb:location "/Users/zhenhaiwang/GitHub/DouBan-KGQA/data/tdb" ;
     # ubuntu
-    tdb:location "/home/ubuntu/DouBan-KGQA/data/tdb/" ;
+    # tdb:location "/home/ubuntu/DouBan-KGQA/data/tdb/" ;
     tdb:unionDefaultGraph true ;

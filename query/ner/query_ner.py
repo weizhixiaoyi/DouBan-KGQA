@@ -23,6 +23,21 @@ class QueryNER:
         for p in path_list:
             jieba.load_userdict(p)
 
+        # jieba未正确切分词, 人工调整其频率
+        jieba.suggest_freq('其他名字', True)
+        jieba.suggest_freq('其他名称', True)
+        jieba.suggest_freq('上映地区', True)
+        jieba.suggest_freq('上映国家', True)
+        jieba.suggest_freq('上映时间', True)
+        jieba.suggest_freq('上映语言', True)
+        jieba.suggest_freq('评分人数', True)
+        jieba.suggest_freq('详细介绍', True)
+        jieba.suggest_freq('时长', True)
+        jieba.suggest_freq('出生时间', True)
+
+
+
+
     def get_ner_objects(self, question):
         """
         对问题进行实体识别

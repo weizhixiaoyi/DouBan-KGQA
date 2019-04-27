@@ -3,11 +3,16 @@
 
 class OptimizeResult:
     def parse(self, candidate_list):
-        result_set = set()
+        movie_info = []
+        book_info = []
         for i in range(0, len(candidate_list)):
-            for j in range(0, len(candidate_list[i])):
-                result_set.add(candidate_list[i][j])
+            if candidate_list[i][0] == 1 or candidate_list[i][0] == 2:
+                movie_info.append((candidate_list[i][1]))
+            if candidate_list[i][0] == 3 or candidate_list[i][0] == 4:
+                book_info.append((candidate_list[i][1]))
+        movie_and_book_info = {
+            'movie_info': movie_info,
+            'book_info': book_info
+        }
 
-        result_list = list(result_set)
-        result_str = ','.join(result_list)
-        return result_str
+        return movie_and_book_info
