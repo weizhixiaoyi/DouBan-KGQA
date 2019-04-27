@@ -52,7 +52,7 @@ class Query:
             sparql_result_value = self.sparql_query.get_sparql_result_value(sparql_result)
             candidate_list.append((sparql_q[0], sparql_result_value))
         # print(candidate_list)
-        print("candidate_list: " + str(candidate_list))
+        # print("candidate_list: " + str(candidate_list))
         # 寻找最相似的问题, 生成答案返回
         result = self.optimize_result.parse(candidate_list)
         return result
