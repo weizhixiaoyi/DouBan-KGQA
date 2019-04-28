@@ -1,2 +1,4 @@
-rdflib = 4.2.2
+jieba
 refo
+SPARQLWrapper
+web

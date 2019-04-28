@@ -13,7 +13,8 @@ class OptimizeResult:
                 if len(candidate_list[i][1]) != 0:
                     book_info.append((candidate_list[i][1]))
 
-        result = '对不起, 我不知道这个问题答案!'
+        result = '对不起, 我不知道这个问题答案.\n' \
+                 '你可以回复\"问答\", 来了解我可以回答的问题类型.'
         if movie_info and not book_info:
             movie_str_list = []
             for movie in movie_info:
