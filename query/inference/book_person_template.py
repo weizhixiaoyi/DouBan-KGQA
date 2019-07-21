@@ -16,7 +16,7 @@ from inference.basic_inference import BookPropertyValueSet
 书籍用户信息
 """
 book = (W('书籍') | W('书') | W('图书')) # 图书
-author = (W('写作') | W('写了'))  #作者
+author = (W('写作') | W('写了') | W('写过'))  #作者
 translator = (W('翻译'))  #译者
 image_url = (W('海报') | W('图片') | W('封面'))  # 封面
 gender = (W('性别'))  # 性别
