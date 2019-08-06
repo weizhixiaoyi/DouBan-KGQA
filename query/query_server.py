@@ -68,11 +68,6 @@ class Handle(object):
             return err
 
 
-# class Handle(object):
-#     def GET(self):
-#         return "hello, this is handle view"
-
-
 urls = (
     '/douban_kgqa', 'Handle'
 )
