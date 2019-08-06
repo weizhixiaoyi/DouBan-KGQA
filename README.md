@@ -8,3 +8,21 @@
 
 ---
 
+要求: Ubuntu or MacOS, python3.6, [jieba, refo, SPARQLWrapper, web]依赖包
+
+
+### 使用方法
+#### 1.下载数据
+因数据文件过大，所以将文件放到百度云，链接: https://pan.baidu.com/s/1JmyPbNM2aqKn6a6K0b-6kw 提取码: 7ndd。下载完成后放入到data/文件夹内即可。
+
+#### 2. 修改配置文件路径
+修改DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/run/configuration/fuseki_conf.ttl中ja:rulesFrom和tdb:location路径地址。
+
+#### 3.启动Apache Server
+进入到DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/路径下，启动fuseki-server。
+> cd DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/
+> ./fuseki-server
+
+#### 4.启动query_main.py
+启动query_main.py进行知识图谱问答。
+> python query_main.py
