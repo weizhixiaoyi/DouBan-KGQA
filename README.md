@@ -28,4 +28,6 @@ cd DouBan-KGQA/json2jena/rdf2jena/apache-jena-fuseki-3.10.0.2/
 
 #### 4.启动query_main.py
 启动query_main.py进行知识图谱问答。
-> python query_main.py
+```python
+python query_main.py
+```
